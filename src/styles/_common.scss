@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  background-color: $smoking-blue;
+  #root {
+    display: flex;
+    height: 100vh;
+
+  }
+}
+
+a,
+button,
+h1,
+input,
+p {
+  font-family: sans-serif;
+}

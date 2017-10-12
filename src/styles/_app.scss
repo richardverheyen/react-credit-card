@@ -1,2 +1,19 @@
 #app {
+  background-color: $slate-blue;
+  border-top: 6px solid $daring-green;
+  border-radius: 2px;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  h1 {
+    color: $angel-white;
+    text-transform: uppercase;
+    font-size: 24px;
+    margin: 30px auto 10px;
   }
+  p {
+    color: $silver;
+    font-size: 12px;
+    margin: 10px auto;
+  }
+}
