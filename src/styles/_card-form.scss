@@ -2,12 +2,23 @@ form#card-form {
   display: flex;
   flex-direction: column;
   margin: 30px 50px;
-  div {
+  @media (max-width: 540px) {
+    margin: 30px;
+  }
+  @media (max-width: 500px) {
+    margin: 30px 10px;
+  }
+  div#values {
     margin-top: 10px;
+    flex-wrap: wrap;
+
     > button {
-      margin-left: 10px;
-      &:nth-child(1) {
-        margin-left: 0;
+      margin-right: 10px;
+      @media (max-width: 500px) {
+        margin: 10px 0 0 8px;
+      }
+      &:nth-last-child(1) {
+        margin-right: 0;
       }
     }
   }
@@ -16,6 +27,7 @@ form#card-form {
   }
   div {
     display: flex;
+    margin-top: 10px;
     #owner {
       width: 100%;
     }
