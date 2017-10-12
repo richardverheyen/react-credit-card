@@ -10,7 +10,7 @@ class CardForm extends Component {
             <button className="button" data-value="5">$5</button>
             <button className="button" data-value="10">$10</button>
             <button className="button" data-value="20">$20</button>
-            <button className="button green" data-value="40">$40</button>
+            <button className="button" data-value="40">$40</button>
             <button className="button" data-value="100">$100</button>
             <button className="button" data-value="250">$250</button>
             <button className="button" data-value="1000">$1000</button>
@@ -28,11 +28,13 @@ class CardForm extends Component {
 
   componentDidMount(){
     const valueButtons = document.getElementById('values');
-    valueButtons.childNodes.forEach(node => node.addEventListener("click", function(e){
+    valueButtons.addEventListener("click", function(e){
       e.preventDefault();
-      this.className += " green";
-    }));
-
+      this.childNodes.forEach(child => {
+        child.classList.remove("green")
+      });
+      e.target.className += ' green';
+    });
   }
 }
 
