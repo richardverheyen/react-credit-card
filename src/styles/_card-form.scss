@@ -1,2 +1,38 @@
-#card-form {
+form#card-form {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 50px;
+  div {
+    margin-top: 10px;
+    > button {
+      margin-left: 10px;
+      &:nth-child(1) {
+        margin-left: 0;
+      }
+    }
   }
+  #card-number {
+    margin-top: 15px;
+  }
+  div {
+    display: flex;
+    #owner {
+      width: 100%;
+    }
+    #expiry-date {
+      // flex: 0 0 50px;
+      width: 55px;
+      margin-left: 10px;
+    }
+    #cvv {
+      // flex: 0 0 40px;
+      width: 40px;
+      margin-left: 10px;
+    }
+  }
+  #confirm-purchase {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+}

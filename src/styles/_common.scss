@@ -15,3 +15,35 @@ input,
 p {
   font-family: sans-serif;
 }
+
+.form-field {
+  background-color: $north-sea-blue;
+  line-height: 38px;
+  color: $stone;
+  font-size: 14px;
+  border: 0;
+  padding-left: 10px;
+  &:focus {
+    background-color: darken($north-sea-blue, 5);
+  }
+}
+.button {
+  background-color: $north-sea-blue;
+  line-height: 38px;
+  color: $angel-white;
+  font-size: 14px;
+  border: 0;
+  border-radius: 2px;
+  padding: 0 12px;
+  cursor: pointer;
+  &:hover {
+    background-color: darken($north-sea-blue, 5);
+  }
+  &.green {
+    background-color: $daring-green;
+    &:hover {
+      background-color: darken($daring-green, 5);
+    }
+  }
+
+}
