@@ -15,11 +15,11 @@ class CardForm extends Component {
             <button className="button" data-value="250">$250</button>
             <button className="button" data-value="1000">$1000</button>
           </div>
-          <input id="card-number" type="text" className="form-field" defaultValue="Credit card number"/>
+          <input id="card-number" type="text" className="form-field" placeholder="Credit card number"/>
           <div>
-              <input id="owner" type="text" className="form-field" defaultValue="Name on card"/>
-              <input id="expiry-date" type="text" className="form-field" defaultValue="MM/YY"/>
-              <input id="cvv" type="text" className="form-field" defaultValue="CVC"/>
+              <input id="owner" type="text" className="form-field" placeholder="Name on card"/>
+              <input id="expiry-date" type="text" className="form-field" placeholder="MM/YY"/>
+              <input id="cvv" type="text" className="form-field" placeholder="CVC"/>
           </div>
           <button id="confirm-purchase" type="submit" className="button green">Deposit funds</button>
       </form>
