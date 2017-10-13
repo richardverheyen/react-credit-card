@@ -13,22 +13,9 @@ h1,
 input,
 p {
   font-family: sans-serif;
-
 }
 
-.form-field {
-  background-color: $north-sea-blue;
-  line-height: 38px;
-  color: $stone;
-  font-size: 14px;
-  border: 0;
-  padding-left: 10px;
-  &:focus {
-    background-color: darken($north-sea-blue, 5);
-    outline: none;
-  }
-}
-.button {
+button {
   background-color: $north-sea-blue;
   line-height: 38px;
   color: $angel-white;
@@ -50,5 +37,4 @@ p {
       background-color: darken($daring-green, 5);
     }
   }
-
 }

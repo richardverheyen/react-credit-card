@@ -8,10 +8,9 @@ form#card-form {
   @media (max-width: 500px) {
     margin: 30px 10px;
   }
-  div#values {
+  > div#values {
     margin-top: 10px;
     flex-wrap: wrap;
-
     > button {
       margin-right: 10px;
       @media (max-width: 500px) {
@@ -22,29 +21,112 @@ form#card-form {
       }
     }
   }
+
+  .field {
+    position: relative;
+    &.show-error {
+      .errors {
+        display: block;
+      }
+    }
+    &.is-valid {
+      input {
+        background-color: darken($north-sea-blue, 5);
+        outline: 1px solid $daring-green;
+        outline-offset: -1px;
+      }
+    }
+    > input {
+      background-color: $north-sea-blue;
+      line-height: 38px;
+      color: $stone;
+      font-size: 14px;
+      width: 100%;
+      border: 0;
+      padding-left: 10px;
+      outline: none;
+      &:focus {
+        background-color: darken($north-sea-blue, 5);
+      }
+    }
+    .errors {
+      position: absolute;
+      top: -40px;
+      display: none;
+      p {
+        font: $angel-white;
+        min-width: 200px;
+        background-color: $error-red;
+        padding: 5px 10px;
+        &:after {
+          position: absolute;
+          bottom: 2px;
+          left: 13px;
+          width: 0;
+          height: 0;
+          content: ' ';
+          border-width: 8px 7px 0 7px;
+          border-style: solid;
+          border-color: $error-red rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+        }
+      }
+    }
+  }
   #card-number {
     margin-top: 15px;
+    input {
+      background-position: 97%;
+      background-repeat: no-repeat;
+      background-size: 45px;
+      &.ae {
+        background-image: url('/img/ae.png');
+      }
+      &.mc {
+        background-image: url('/img/mc.png');
+      }
+      &.vi {
+        background-image: url('/img/vi.png');
+      }
+      &.ec {
+        background-image: url('/img/ec.png');
+      }
+      &.dc {
+        background-image: url('/img/dc.png');
+      }
+    }
   }
-  div {
+  > div {
     display: flex;
     margin-top: 10px;
     #owner {
       width: 100%;
+      margin-right: 10px;
     }
     #expiry-date {
-      // flex: 0 0 50px;
-      width: 55px;
       margin-left: 10px;
+      input {
+        width: 55px;
+      }
     }
     #cvv {
-      // flex: 0 0 40px;
-      width: 40px;
       margin-left: 10px;
+      input {
+        width: 40px;
+      }
     }
   }
-  #confirm-purchase {
+
+  button[type="submit"] {
     width: 100%;
     margin-top: 10px;
+    &.loading {
+      background: red;
+      // cursor: default;
+      // color: #fff;
+      // @include sideway-animation($daring-green);
+      // text-shadow: 0 0 3px RGBA(0,0,0,0.3);
+      // height: 40px;
+    }
   }
 
 }
