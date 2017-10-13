@@ -75,6 +75,7 @@ form#card-form {
   #card-number {
     margin-top: 15px;
     input {
+      letter-spacing: 0.8px;
       background-position: 97%;
       background-repeat: no-repeat;
       background-size: 45px;
@@ -120,12 +121,18 @@ form#card-form {
     width: 100%;
     margin-top: 10px;
     &.loading {
-      background: red;
-      // cursor: default;
-      // color: #fff;
-      // @include sideway-animation($daring-green);
-      // text-shadow: 0 0 3px RGBA(0,0,0,0.3);
-      // height: 40px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        background-color: $daring-green;
+      }
+      50% {
+        background-color: yellow;
+      }
+      100% {
+        background-color: $daring-green;
+      }
     }
   }
 

@@ -9,18 +9,19 @@ class CardForm extends Component {
       transaction: null,
       transactionIsValid: false,
       name: null,
-      nameIsValid: true,
+      nameIsValid: false,
       nameError: null,
       expiry: null,
       expiryIsValid: false,
       expiryError: null,
       cvv: null,
-      cvvIsValid: true,
+      cvvIsValid: false,
       cvvError: null,
       creditCard: null,
       creditCardIsValid: false,
       creditCardError: null,
       submitting: false,
+      submitSuccess: false,
       cardServiceProvider: null
     };
     this.setTransaction = this.setTransaction.bind(this);
@@ -180,9 +181,9 @@ class CardForm extends Component {
     this.validateExpiry();
     this.validateCvv();
 
-    const {transactionIsValid, creditCardIsValid, nameIsValid, expiryIsValid, cvvIsValid} = this.state;
+    const {transaction, creditCardIsValid, nameIsValid, expiryIsValid, cvvIsValid} = this.state;
 
-    const formIsValid = transactionIsValid && creditCardIsValid && nameIsValid && expiryIsValid && cvvIsValid;
+    const formIsValid = transaction && creditCardIsValid && nameIsValid && expiryIsValid && cvvIsValid;
 
     if (formIsValid) { return this.submitTransaction(); }
   }
@@ -191,9 +192,9 @@ class CardForm extends Component {
     if (this.state.submitting) { return; }
     const onSuccess = msg => {
       this.setState({submitting: false});
+      this.setState({submitSuccess: true});
       console.debug('API request succesful!');
       console.log(msg);
-      // TODO: Show user success screen
     };
     const onFail = msg => {
       this.setState({submitting: false});
@@ -295,8 +296,9 @@ class CardForm extends Component {
           </div>
           <button
             type="submit"
-            className={"green " + (this.state.submitting ? 'loading' : 'idle' )}
-          >Deposit funds</button>
+            className={"green " + (this.state.submitting ? 'loading' : 'idle' )}>
+            {(this.state.submitSuccess ? `Transfer of $${this.state.transaction} Successful!` : (this.state.submitting ? 'Submitting' : 'Deposit funds'))}
+          </button>
       </form>
     );
   }
