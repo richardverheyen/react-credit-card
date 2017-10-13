@@ -185,7 +185,12 @@ class CardForm extends Component {
 
     const formIsValid = transaction && creditCardIsValid && nameIsValid && expiryIsValid && cvvIsValid;
 
-    if (formIsValid) { return this.submitTransaction(); }
+    if (formIsValid) {
+       return this.submitTransaction();
+    } else {
+      let errorFields = document.querySelector('.not-valid');
+      errorFields.classList += ' show-error';
+    }
   }
 
   submitTransaction() {
@@ -233,7 +238,6 @@ class CardForm extends Component {
         <div
           id="card-number"
           className={"field " +
-          (this.state.creditCardError ? 'show-error' : 'no-errors') + ' ' +
           (this.state.creditCardIsValid ? 'is-valid' : 'not-valid')}>
           <input
             type="text"
@@ -251,7 +255,6 @@ class CardForm extends Component {
             <div
               id="owner"
               className={"field " +
-              (this.state.nameError ? 'show-error' : 'no-errors') + ' ' +
               (this.state.nameIsValid ? 'is-valid' : 'not-valid')}>
               <input
               type="text"
@@ -265,7 +268,6 @@ class CardForm extends Component {
             <div
               id="expiry-date"
               className={"field " +
-              (this.state.expiryError ? 'show-error' : 'no-errors') + ' ' +
               (this.state.expiryIsValid ? 'is-valid' : 'not-valid')}>
               <input
               type="text"
@@ -280,7 +282,6 @@ class CardForm extends Component {
             <div
               id="cvv"
               className={"field " +
-              (this.state.cvvError ? 'show-error' : 'no-errors') + ' ' +
               (this.state.cvvIsValid ? 'is-valid' : 'not-valid')}>
               <input
               type="text"
