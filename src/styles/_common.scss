@@ -43,7 +43,8 @@ p {
   &:hover {
     background-color: darken($north-sea-blue, 5);
   }
-  &.green {
+  &.green,
+  &.selected {
     background-color: $daring-green;
     &:hover {
       background-color: darken($daring-green, 5);
