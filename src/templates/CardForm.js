@@ -36,7 +36,9 @@ class CardForm extends Component {
     console.log('dateTestPass = ' + dateTestPass);
 
     //included cvc?
-
+    const cvvPattern = /^\d{3}$/;
+    let cvvTestPass = cvvPattern.test(document.getElementById('cvv').value);
+    console.log('cvvTestPass = ' + cvvTestPass);
 
   }
 
@@ -77,7 +79,8 @@ class CardForm extends Component {
                 type="text"
                 className="form-field"
                 placeholder="CVC"
-                maxLength="3"/>
+                maxLength="3"
+                pattern="[0-9]{3}"/>
           </div>
           <button id="confirm-purchase" type="submit" className="button green">Deposit funds</button>
       </form>
