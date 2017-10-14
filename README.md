@@ -1,5 +1,6 @@
 ## react credit card reader.
-### run using 'yarn start' from the command line;
+### Requires: yarn: https://yarnpkg.com/en/ 
+### run using: 'yarn install', 'yarn start' from the command line;
 
 ## Pros:
 - Mobile Responsive
