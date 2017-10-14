@@ -44,14 +44,14 @@ class CardForm extends Component {
 
   setTransaction(button) {
     let value = button.target.innerHTML.substr(1);
-    this.setState({transaction: value});
-    this.setState({transactionIsValid: true});
+    this.setState({ transaction: value });
+    this.setState({ transactionIsValid: true });
   }
 
   validateCreditCard(event) {
 
     const value = event ? event.target.value : this.state.creditCard;
-    this.setState({creditCard: value});
+    this.setState({ creditCard: value });
 
     console.log(value);
 
@@ -72,19 +72,19 @@ class CardForm extends Component {
     this.deductCreditCardCompany(value);
   }
 
-  deductCreditCardCompany(value){
+  deductCreditCardCompany(value) {
     let ccvalues = {
-      'mc':/5[1-5][0-9]{14}/,
-      'ec':/5[1-5][0-9]{14}/,
-      'vi':/4(?:[0-9]{12}|[0-9]{15})/,
-      'ax':/3[47][0-9]{13}/,
-      'dc':/3(?:0[0-5][0-9]{11}|[68][0-9]{12})/
+      'mc': /5[1-5][0-9]{14}/,
+      'ec': /5[1-5][0-9]{14}/,
+      'vi': /4(?:[0-9]{12}|[0-9]{15})/,
+      'ax': /3[47][0-9]{13}/,
+      'dc': /3(?:0[0-5][0-9]{11}|[68][0-9]{12})/
     }
     for (let key in ccvalues) {
       if (!ccvalues.hasOwnProperty(key)) continue;
       let regex = ccvalues[key];
       if (regex.test(value)) {
-        this.setState({cardServiceProvider: key})
+        this.setState({ cardServiceProvider: key })
       };
     }
   }
@@ -98,7 +98,7 @@ class CardForm extends Component {
   validateName(event) {
 
     const value = event ? event.target.value : this.state.name;
-    this.setState({name: value});
+    this.setState({ name: value });
 
     const isEmpty = value ? false : true;
     if (isEmpty) {
@@ -124,7 +124,7 @@ class CardForm extends Component {
   validateExpiry(event) {
 
     const value = event ? event.target.value : this.state.expiry;
-    this.setState({expiry: value});
+    this.setState({ expiry: value });
 
     const isEmpty = value ? false : true;
     if (isEmpty) {
@@ -149,7 +149,7 @@ class CardForm extends Component {
   validateCvv(event) {
 
     const value = event ? event.target.value : this.state.cvv;
-    this.setState({cvv: value});
+    this.setState({ cvv: value });
 
     const isEmpty = value ? false : true;
     if (isEmpty) {
@@ -181,41 +181,41 @@ class CardForm extends Component {
     this.validateExpiry();
     this.validateCvv();
 
-    const {transaction, creditCardIsValid, nameIsValid, expiryIsValid, cvvIsValid} = this.state;
+    const { transaction, creditCardIsValid, nameIsValid, expiryIsValid, cvvIsValid } = this.state;
 
     const formIsValid = transaction && creditCardIsValid && nameIsValid && expiryIsValid && cvvIsValid;
 
     if (formIsValid) {
-       return this.submitTransaction();
+      return this.submitTransaction();
     } else {
       let errorFields = document.querySelector('.not-valid');
       errorFields.classList += ' show-error';
     }
   }
 
+  // Submit the form to our API and handle the `onSucces` or `onFail`
   submitTransaction() {
     if (this.state.submitting) { return; }
     const onSuccess = msg => {
-      this.setState({submitting: false});
-      this.setState({submitSuccess: true});
-      console.debug('API request succesful!');
-      console.log(msg);
+      this.setState({ submitting: false });
+      this.setState({ submitSuccess: true });
+      console.log(`API request succesful! ${msg}`);
+      // TODO: Transition user to success page
     };
     const onFail = msg => {
-      this.setState({submitting: false});
-      console.error(`API request failed: "${msg}"`);
+      this.setState({ submitting: false });
+      console.error(`API request failed. ${msg}`);
       // TODO: Show user API error
     };
-    this.setState({submitting: true});
+    this.setState({ submitting: true });
     console.log('Submitting to API ...');
     this.asyncPostToAPI().then(onSuccess, onFail);
   }
 
+  // Mock a POST request to our API and resolve / reject after 2 seconds
   asyncPostToAPI(onSuccess, onFail) {
-    console.log('asyncPostToAPI');
-    return new Promise((resolve, reject)=>{
-      console.log('before setTimeout');
-      return setTimeout(function(){
+    return new Promise((resolve, reject) => {
+      return setTimeout(function() {
         resolve('status 200: the payment was accepted');
         // reject('status 422: the payment request was rejected');
       }, 2000);
@@ -223,90 +223,107 @@ class CardForm extends Component {
   }
 
   render() {
-    return (
-      <form id="card-form" onSubmit={this.submitForm}>
-        <div id="values">
-          <button onClick={this.setTransaction}>$5</button>
-          <button onClick={this.setTransaction}>$10</button>
-          <button onClick={this.setTransaction}>$20</button>
-          <button onClick={this.setTransaction}>$40</button>
-          <button onClick={this.setTransaction}>$100</button>
-          <button onClick={this.setTransaction}>$250</button>
-          <button onClick={this.setTransaction}>$1000</button>
-        </div>
+    return ( <
+      form id = "card-form"
+      onSubmit = { this.submitForm } >
+      <
+      div id = "values" >
+      <
+      button onClick = { this.setTransaction } > $5 < /button> <
+      button onClick = { this.setTransaction } > $10 < /button> <
+      button onClick = { this.setTransaction } > $20 < /button> <
+      button onClick = { this.setTransaction } > $40 < /button> <
+      button onClick = { this.setTransaction } > $100 < /button> <
+      button onClick = { this.setTransaction } > $250 < /button> <
+      button onClick = { this.setTransaction } > $1000 < /button> <
+      /div>
 
-        <div
-          id="card-number"
-          className={"field " +
-          (this.state.creditCardIsValid ? 'is-valid' : 'not-valid')}>
-          <input
-            type="text"
-            placeholder="Credit card number"
-            maxLength="16"
-            autoComplete="off"
-            className= {(this.state.cardServiceProvider) ? this.state.cardServiceProvider : ''}
-            onBlur={this.validateCreditCard}/>
-          <div className="errors">
-            <p>{this.state.creditCardError}</p>
-          </div>
-        </div>
+      <
+      div id = "card-number"
+      className = {
+        "field " +
+        (this.state.creditCardIsValid ? 'is-valid' : 'not-valid')
+      } >
+      <
+      input type = "text"
+      placeholder = "Credit card number"
+      maxLength = "16"
+      autoComplete = "off"
+      className = {
+        (this.state.cardServiceProvider) ? this.state.cardServiceProvider : '' } onBlur = { this.validateCreditCard }
+      /> <
+      div className = "errors" >
+      <
+      p > { this.state.creditCardError } < /p> <
+      /div> <
+      /div>
 
-        <div>
-            <div
-              id="owner"
-              className={"field " +
-              (this.state.nameIsValid ? 'is-valid' : 'not-valid')}>
-              <input
-              type="text"
-              autoComplete="off"
-              placeholder="Name on card"
-              onBlur={this.validateName}/>
-              <div className="errors">
-                <p>{this.state.nameError}</p>
-              </div>
-            </div>
-            <div
-              id="expiry-date"
-              className={"field " +
-              (this.state.expiryIsValid ? 'is-valid' : 'not-valid')}>
-              <input
-              type="text"
-              placeholder="MM/YY"
-              autoComplete="off"
-              pattern="[0-9]{2}/[0-9]{2}"
-              onBlur={this.validateExpiry}/>
-              <div className="errors">
-                <p>{this.state.expiryError}</p>
-              </div>
-            </div>
-            <div
-              id="cvv"
-              className={"field " +
-              (this.state.cvvIsValid ? 'is-valid' : 'not-valid')}>
-              <input
-              type="text"
-              placeholder="CVV"
-              maxLength="3"
-              autoComplete="off"
-              pattern="[0-9]{3}"
-              onBlur={this.validateCvv}/>
-              <div className="errors">
-                <p>{this.state.cvvError}</p>
-              </div>
-            </div>
-          </div>
-          <button
-            type="submit"
-            className={"green " + (this.state.submitting ? 'loading' : 'idle' )}>
-            {(this.state.submitSuccess ? `Transfer of $${this.state.transaction} Successful!` : (this.state.submitting ? 'Submitting' : 'Deposit funds'))}
-          </button>
-      </form>
+      <
+      div >
+      <
+      div id = "owner"
+      className = {
+        "field " +
+        (this.state.nameIsValid ? 'is-valid' : 'not-valid')
+      } >
+      <
+      input type = "text"
+      autoComplete = "off"
+      placeholder = "Name on card"
+      onBlur = { this.validateName }
+      /> <
+      div className = "errors" >
+      <
+      p > { this.state.nameError } < /p> <
+      /div> <
+      /div> <
+      div id = "expiry-date"
+      className = {
+        "field " +
+        (this.state.expiryIsValid ? 'is-valid' : 'not-valid')
+      } >
+      <
+      input type = "text"
+      placeholder = "MM/YY"
+      autoComplete = "off"
+      pattern = "[0-9]{2}/[0-9]{2}"
+      onBlur = { this.validateExpiry }
+      /> <
+      div className = "errors" >
+      <
+      p > { this.state.expiryError } < /p> <
+      /div> <
+      /div> <
+      div id = "cvv"
+      className = {
+        "field " +
+        (this.state.cvvIsValid ? 'is-valid' : 'not-valid')
+      } >
+      <
+      input type = "text"
+      placeholder = "CVV"
+      maxLength = "3"
+      autoComplete = "off"
+      pattern = "[0-9]{3}"
+      onBlur = { this.validateCvv }
+      /> <
+      div className = "errors" >
+      <
+      p > { this.state.cvvError } < /p> <
+      /div> <
+      /div> <
+      /div> <
+      button type = "submit"
+      className = { "green " + (this.state.submitting ? 'loading' : 'idle') } > {
+        (this.state.submitSuccess ? `Transfer of $${this.state.transaction} Successful!` : (this.state.submitting ? 'Submitting' : 'Deposit funds')) } <
+      /button> <
+      /form>
     );
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const valueButtons = document.getElementById('values');
-    valueButtons.addEventListener('click', function(e){
+    valueButtons.addEventListener('click', function(e) {
       e.preventDefault();
 
       if (e.target.classList.contains('selected')) { //Remove selection on second click
