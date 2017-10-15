@@ -4,7 +4,6 @@ class CardForm extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       transaction: null,
       transactionIsValid: false,
@@ -294,11 +293,11 @@ class CardForm extends Component {
     );
   }
 
+  // TODO: Bind this events onRender rather than hacking DOM afterRender
   componentDidMount() {
     const valueButtons = document.getElementById('values');
     valueButtons.addEventListener('click', function(e) {
       e.preventDefault();
-
       if (e.target.classList.contains('selected')) { //Remove selection on second click
         this.childNodes.forEach(child => {
           child.classList.remove('selected');
