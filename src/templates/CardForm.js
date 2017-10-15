@@ -26,54 +26,53 @@ class CardForm extends Component {
     };
     this.setTransaction = this.setTransaction.bind(this);
     this.validateCreditCard = this.validateCreditCard.bind(this);
-    this.showCardError = this.showCardError.bind(this);
-
     this.validateName = this.validateName.bind(this);
-    this.showNameError = this.showNameError.bind(this);
-
     this.validateExpiry = this.validateExpiry.bind(this);
-    this.showExpiryError = this.showExpiryError.bind(this);
-
     this.validateCvv = this.validateCvv.bind(this);
-    this.showCvvError = this.showCvvError.bind(this);
-
     this.submitForm = this.submitForm.bind(this);
     this.submitTransaction = this.submitTransaction.bind(this);
     this.asyncPostToAPI = this.asyncPostToAPI.bind(this);
   }
 
   setTransaction(button) {
-    let value = button.target.innerHTML.substr(1);
-    this.setState({ transaction: value });
-    this.setState({ transactionIsValid: true });
+    const value = button.target.innerHTML.substr(1);
+    this.setState({
+      transaction: value,
+      transactionIsValid: true
+    });
   }
 
-  validateCreditCard(event) {
+  showError(attribute, errorMsg) {
+    const hash = {
+      [`${attribute}Error`]: errorMsg,
+      [`${attribute}IsValid`]: false
+    };
+    this.setState(hash);
+  }
 
+  // Check whether the credit card number is correct, show error if false
+  validateCreditCard(event) {
     const value = event ? event.target.value : this.state.creditCard;
     this.setState({ creditCard: value });
 
-    console.log(value);
-
     const isEmpty = value ? false : true;
-    if (isEmpty) {
-      return this.showCardError('Please enter number');
-    }
+    if (isEmpty) { return this.showError('creditCard', 'Please enter your card number'); }
 
     const regex = /^\d{16}$/g;
     const validFormat = regex.test(value);
-    if (!validFormat) {
-      return this.showCardError('Please enter 16 digits');
-    }
+    if (!validFormat) { return this.showError('creditCard', 'Please enter 16 digits'); }
 
-    this.setState({ creditCardIsValid: true });
-    this.setState({ creditCardError: null });
+    this.setState({
+      creditCardIsValid: true,
+      creditCardError: null
+    });
 
     this.deductCreditCardCompany(value);
   }
 
-  deductCreditCardCompany(value) {
-    let ccvalues = {
+  // Interpret the credit card company from the credit card number and show confirmation in UI
+  deductCreditCardCompany(creditCardNumber) {
+    const ccvalues = {
       'mc': /5[1-5][0-9]{14}/,
       'ec': /5[1-5][0-9]{14}/,
       'vi': /4(?:[0-9]{12}|[0-9]{15})/,
@@ -83,93 +82,64 @@ class CardForm extends Component {
     for (let key in ccvalues) {
       if (!ccvalues.hasOwnProperty(key)) continue;
       let regex = ccvalues[key];
-      if (regex.test(value)) {
+      if (regex.test(creditCardNumber)) {
         this.setState({ cardServiceProvider: key })
       };
     }
   }
 
-  showCardError(string) {
-    console.error(string);
-    this.setState({ creditCardIsValid: false });
-    this.setState({ creditCardError: string })
-  }
-
+  // Check whether the user name is correct, show error if false
   validateName(event) {
-
     const value = event ? event.target.value : this.state.name;
     this.setState({ name: value });
 
     const isEmpty = value ? false : true;
-    if (isEmpty) {
-      return this.showNameError('Please enter your name');
-    }
+    if (isEmpty) { return this.showError('name', 'Please enter your name'); }
 
     const regex = /^[a-z ,.'-]+$/i;
     const validFormat = regex.test(value);
-    if (!validFormat) {
-      return this.showNameError('Please enter a valid name');
-    }
+    if (!validFormat) { return this.showError('name', 'Please enter a valid name'); }
 
-    this.setState({ nameIsValid: true });
-    this.setState({ nameError: null });
+    this.setState({
+      nameIsValid: true,
+      nameError: null,
+    });
   }
 
-  showNameError(string) {
-    console.error(string);
-    this.setState({ nameIsValid: false });
-    this.setState({ nameError: string })
-  }
-
+  // Check whether the expiry date is correct, show error if false
   validateExpiry(event) {
-
     const value = event ? event.target.value : this.state.expiry;
     this.setState({ expiry: value });
 
     const isEmpty = value ? false : true;
-    if (isEmpty) {
-      return this.showExpiryError('Please enter your card\'s expiry date');
-    }
+    if (isEmpty) { return this.showError('expiry', `Please enter your card's expiry date`); }
 
     const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
     const validFormat = regex.test(value);
-    if (!validFormat) {
-      return this.showExpiryError('Please enter your expiry date (MM/YY)');
-    }
+    if (!validFormat) { return this.showError('expiry', 'Please enter your expiry date (MM/YY)'); }
 
-    this.setState({ expiryIsValid: true });
-    this.setState({ expiryError: null });
+    this.setState({
+      expiryIsValid: true,
+      expiryError: null
+    });
   }
 
-  showExpiryError(string) {
-    this.setState({ expiryIsValid: false });
-    this.setState({ expiryError: string })
-  }
-
+  // Check whether the CVV is correct, show error if false
   validateCvv(event) {
-
     const value = event ? event.target.value : this.state.cvv;
     this.setState({ cvv: value });
 
     const isEmpty = value ? false : true;
-    if (isEmpty) {
-      return this.showCvvError('Please enter your card\'s CVV number');
-    }
+    if (isEmpty) { return this.showError('cvv', 'Please enter your card\'s CVV number'); }
 
     const regex = /^\d{3}$/;
     const validFormat = regex.test(value);
-    if (!validFormat) {
-      return this.showCvvError('Please enter a valid CVV number');
-    }
+    if (!validFormat) { return this.showError('cvv', 'Please enter a valid CVV number'); }
 
-    this.setState({ cvvIsValid: true });
-    this.setState({ cvvError: null });
-  }
-
-  showCvvError(string) {
-    console.error(string);
-    this.setState({ cvvIsValid: false });
-    this.setState({ cvvError: string })
+    this.setState({
+      cvvIsValid: true,
+      cvvError: null
+    });
   }
 
   submitForm(event) {
@@ -188,8 +158,9 @@ class CardForm extends Component {
     if (formIsValid) {
       return this.submitTransaction();
     } else {
-      let errorFields = document.querySelector('.not-valid');
-      errorFields.classList += ' show-error';
+      // TODO: This bit breaks, errorFields is null
+      // const errorFields = document.querySelector('.not-valid');
+      // errorFields.classList += ' show-error';
     }
   }
 
@@ -197,8 +168,10 @@ class CardForm extends Component {
   submitTransaction() {
     if (this.state.submitting) { return; }
     const onSuccess = msg => {
-      this.setState({ submitting: false });
-      this.setState({ submitSuccess: true });
+      this.setState({
+        submitting: false,
+        submitSuccess: true
+      });
       console.log(`API request succesful! ${msg}`);
       // TODO: Transition user to success page
     };
