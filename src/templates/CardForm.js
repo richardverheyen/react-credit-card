@@ -194,7 +194,7 @@ class CardForm extends Component {
 
   render() {
     return (
-      <id="card-form">
+      <div id="card-form">
         <div id="values">
           <button onClick={this.setTransaction}>$5</button>
           <button onClick={this.setTransaction}>$10</button>
