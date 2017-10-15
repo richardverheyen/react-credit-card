@@ -24,6 +24,7 @@ class CardForm extends Component {
       cardServiceProvider: null
     };
     this.setTransaction = this.setTransaction.bind(this);
+    this.showError = this.submitForm.bind(this);
     this.validateCreditCard = this.validateCreditCard.bind(this);
     this.validateName = this.validateName.bind(this);
     this.validateExpiry = this.validateExpiry.bind(this);
