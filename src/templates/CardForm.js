@@ -24,7 +24,7 @@ class CardForm extends Component {
       cardServiceProvider: null
     };
     this.setTransaction = this.setTransaction.bind(this);
-    this.showError = this.submitForm.bind(this);
+    this.showError = this.showError.bind(this);
     this.validateCreditCard = this.validateCreditCard.bind(this);
     this.validateName = this.validateName.bind(this);
     this.validateExpiry = this.validateExpiry.bind(this);
@@ -142,8 +142,6 @@ class CardForm extends Component {
   }
 
   submitForm(event) {
-    event.preventDefault();
-
     // TODO: this.validateTransaction
     this.validateCreditCard();
     this.validateName();
@@ -196,7 +194,7 @@ class CardForm extends Component {
 
   render() {
     return (
-      <form id="card-form" onSubmit={this.submitForm}>
+      <id="card-form">
         <div id="values">
           <button onClick={this.setTransaction}>$5</button>
           <button onClick={this.setTransaction}>$10</button>
@@ -266,11 +264,12 @@ class CardForm extends Component {
           </div>
         </div>
         <button
-          type="submit"
+          id='submit'
+          onClick={this.submitForm}
           className={"green " + (this.state.submitting ? 'loading' : 'idle' )}>
           {(this.state.submitSuccess ? `Transfer of $${this.state.transaction} Successful!` : (this.state.submitting ? 'Submitting' : 'Deposit funds'))}
         </button>
-      </form>
+      </div>
     );
   }
 
