@@ -43,11 +43,10 @@ class CardForm extends Component {
   }
 
   showError(attribute, errorMsg) {
-    const hash = {
+    this.setState({
       [`${attribute}Error`]: errorMsg,
       [`${attribute}IsValid`]: false
-    };
-    this.setState(hash);
+    });
   }
 
   // Check whether the credit card number is correct, show error if false
