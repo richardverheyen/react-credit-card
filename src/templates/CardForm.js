@@ -195,101 +195,82 @@ class CardForm extends Component {
   }
 
   render() {
-    return ( <
-      form id = "card-form"
-      onSubmit = { this.submitForm } >
-      <
-      div id = "values" >
-      <
-      button onClick = { this.setTransaction } > $5 < /button> <
-      button onClick = { this.setTransaction } > $10 < /button> <
-      button onClick = { this.setTransaction } > $20 < /button> <
-      button onClick = { this.setTransaction } > $40 < /button> <
-      button onClick = { this.setTransaction } > $100 < /button> <
-      button onClick = { this.setTransaction } > $250 < /button> <
-      button onClick = { this.setTransaction } > $1000 < /button> <
-      /div>
-
-      <
-      div id = "card-number"
-      className = {
-        "field " +
-        (this.state.creditCardIsValid ? 'is-valid' : 'not-valid')
-      } >
-      <
-      input type = "text"
-      placeholder = "Credit card number"
-      maxLength = "16"
-      autoComplete = "off"
-      className = {
-        (this.state.cardServiceProvider) ? this.state.cardServiceProvider : '' } onBlur = { this.validateCreditCard }
-      /> <
-      div className = "errors" >
-      <
-      p > { this.state.creditCardError } < /p> <
-      /div> <
-      /div>
-
-      <
-      div >
-      <
-      div id = "owner"
-      className = {
-        "field " +
-        (this.state.nameIsValid ? 'is-valid' : 'not-valid')
-      } >
-      <
-      input type = "text"
-      autoComplete = "off"
-      placeholder = "Name on card"
-      onBlur = { this.validateName }
-      /> <
-      div className = "errors" >
-      <
-      p > { this.state.nameError } < /p> <
-      /div> <
-      /div> <
-      div id = "expiry-date"
-      className = {
-        "field " +
-        (this.state.expiryIsValid ? 'is-valid' : 'not-valid')
-      } >
-      <
-      input type = "text"
-      placeholder = "MM/YY"
-      autoComplete = "off"
-      pattern = "[0-9]{2}/[0-9]{2}"
-      onBlur = { this.validateExpiry }
-      /> <
-      div className = "errors" >
-      <
-      p > { this.state.expiryError } < /p> <
-      /div> <
-      /div> <
-      div id = "cvv"
-      className = {
-        "field " +
-        (this.state.cvvIsValid ? 'is-valid' : 'not-valid')
-      } >
-      <
-      input type = "text"
-      placeholder = "CVV"
-      maxLength = "3"
-      autoComplete = "off"
-      pattern = "[0-9]{3}"
-      onBlur = { this.validateCvv }
-      /> <
-      div className = "errors" >
-      <
-      p > { this.state.cvvError } < /p> <
-      /div> <
-      /div> <
-      /div> <
-      button type = "submit"
-      className = { "green " + (this.state.submitting ? 'loading' : 'idle') } > {
-        (this.state.submitSuccess ? `Transfer of $${this.state.transaction} Successful!` : (this.state.submitting ? 'Submitting' : 'Deposit funds')) } <
-      /button> <
-      /form>
+    return (
+      <form id="card-form" onSubmit={this.submitForm}>
+        <div id="values">
+          <button onClick={this.setTransaction}>$5</button>
+          <button onClick={this.setTransaction}>$10</button>
+          <button onClick={this.setTransaction}>$20</button>
+          <button onClick={this.setTransaction}>$40</button>
+          <button onClick={this.setTransaction}>$100</button>
+          <button onClick={this.setTransaction}>$250</button>
+          <button onClick={this.setTransaction}>$1000</button>
+        </div>
+        <div
+          id="card-number"
+          className={"field " +
+          (this.state.creditCardIsValid ? 'is-valid' : 'not-valid')}>
+          <input
+            type="text"
+            placeholder="Credit card number"
+            maxLength="16"
+            autoComplete="off"
+            className= {(this.state.cardServiceProvider) ? this.state.cardServiceProvider : ''}
+            onBlur={this.validateCreditCard}/>
+          <div className="errors">
+            <p>{this.state.creditCardError}</p>
+          </div>
+        </div>
+        <div>
+          <div
+            id="owner"
+            className={"field " +
+            (this.state.nameIsValid ? 'is-valid' : 'not-valid')}>
+            <input
+            type="text"
+            autoComplete="off"
+            placeholder="Name on card"
+            onBlur={this.validateName}/>
+            <div className="errors">
+              <p>{this.state.nameError}</p>
+            </div>
+          </div>
+          <div
+            id="expiry-date"
+            className={"field " +
+            (this.state.expiryIsValid ? 'is-valid' : 'not-valid')}>
+            <input
+            type="text"
+            placeholder="MM/YY"
+            autoComplete="off"
+            pattern="[0-9]{2}/[0-9]{2}"
+            onBlur={this.validateExpiry}/>
+            <div className="errors">
+              <p>{this.state.expiryError}</p>
+            </div>
+          </div>
+          <div
+            id="cvv"
+            className={"field " +
+            (this.state.cvvIsValid ? 'is-valid' : 'not-valid')}>
+            <input
+            type="text"
+            placeholder="CVV"
+            maxLength="3"
+            autoComplete="off"
+            pattern="[0-9]{3}"
+            onBlur={this.validateCvv}/>
+            <div className="errors">
+              <p>{this.state.cvvError}</p>
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          className={"green " + (this.state.submitting ? 'loading' : 'idle' )}>
+          {(this.state.submitSuccess ? `Transfer of $${this.state.transaction} Successful!` : (this.state.submitting ? 'Submitting' : 'Deposit funds'))}
+        </button>
+      </form>
     );
   }
 
