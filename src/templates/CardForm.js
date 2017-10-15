@@ -155,9 +155,8 @@ class CardForm extends Component {
     if (formIsValid) {
       return this.submitTransaction();
     } else {
-      // TODO: This bit breaks, errorFields is null
-      // const errorFields = document.querySelector('.not-valid');
-      // errorFields.classList += ' show-error';
+      const errorFields = document.querySelector('.not-valid');
+      errorFields.classList += ' show-error';
     }
   }
 
